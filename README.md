@@ -26,6 +26,9 @@ A few features typical to websocket servers have been selectively excluded from 
 
 As discussed, this server is intended to perform the primary duties of a websocket server with minimal code and minimal complication. It is intended to serve only as an example for learning and practice, or a basis upon which to build a more compliant server. 
 
+## Get Started
+To start up the server, run `ruby serve.rb` from a terminal. Connect to the server by loading up `index.html` in a browser or connecting via another local client. Note that this code was tested with Ruby v2.2.7.
+
 ## Reading List
 WebSockets are fun to play around with, but it helps to uderstand the basics. Below, find a few links that might help familiarize yourself with the concepts.
 - [MDN WebSockets API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
