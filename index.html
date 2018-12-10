@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebSocket Echo Client</title>
+    <title>WebSocket Client</title>
 </head>
 <body>
-<h1>Websocket Echo Client</h1>
+<h1>Websocket Client</h1>
 <p style="font-style: italic;">This client derives primarily from <a href="https://www.linode.com/docs/development/introduction-to-websockets/">this tutorial</a> with additional input from <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications">the MDN WebSocket guides</a> and related documents.</p>
 
 <div id="controls">
     <!-- This will initiate a disconnect from the server -->
-    <button id="close">Disconnect</button>
+    <button id="close">Disconnect</button><br />
+    <!-- Send a message to the server. The server will confirm a message was sent, but currently doesn't do anything with it. -->
+    <input type="text" placeholder="Message goes here" id="message" /><button id="send">Send</button> 
 </div>
 
 <!-- Used to transcribe operations and related information -->
@@ -36,8 +38,7 @@
 
         // Listen for the connection open event then call the sendMessage function          
         ws.onopen = function (e) {      
-            log("Connected");
-            sendMessage("Hello WebSocket!")  
+            log("Connected on " + ws.url);
         }
 
         // Listen for the close connection event
@@ -57,6 +58,9 @@
 
         // Let the user decide to disconnect.
         document.getElementById("close").onclick = function(e) { disconnect() }
+
+        // This is not particularly safe (though in theory the server should handle it).
+        document.getElementById("send").onclick = function(e) { sendMessage(document.getElementById("message").value) }
     }
 
     // Disconnect from the server
