@@ -15,6 +15,7 @@ class Connection
   # Close this connection
   def close
 	@logger.info("Closing the socket.")
+	@logger.close
 	@socket.shutdown(:RDWR)
 	@socket.close
   end
@@ -38,8 +39,9 @@ class Connection
 	  op = first_byte
 	end
 
-	@logger.debug("Received op code %d (hex %x)" % op, op.to_s(16))
-
+	@logger.debug("Received op code %d" % op)
+	@logger.debug("(Hex code %x)" % op.to_s(16))
+	
 	# If we got a 0x8 close op code, shut down.
 	if op == 8
 	  send_close # Confirm for the client
@@ -67,12 +69,12 @@ class Connection
 	
 	# Masking key randomly selected by the client. Server needs this to decode the content.
 	keys = socket.read(4).bytes
-
+	
 	# The encoded content of the message
 	encoded = socket.read(length).bytes
 	
 	# If we got a 0x9 ping op code, send a pong.
-	if op == 8
+	if op == 9
 	  send_pong(length, encoded)
 	  return true
 	end

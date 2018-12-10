@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<title>WebSocket Echo Client</title>
-<h2>Websocket Echo Client</h2>
+<html>
+<head>
+    <title>WebSocket Echo Client</title>
+</head>
+<body>
+<h1>Websocket Echo Client</h1>
+<p style="font-style: italic;">This client derives primarily from <a href="https://www.linode.com/docs/development/introduction-to-websockets/">this tutorial</a> with additional input from <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications">the MDN WebSocket guides</a> and related documents.</p>
+
 <div id="controls">
+    <!-- This will initiate a disconnect from the server -->
     <button id="close">Disconnect</button>
 </div>
+
+<!-- Used to transcribe operations and related information -->
 <div id="output"></div>
+
 <script>
+
+    // For the websocket
     var ws = null;
+
     // Initialize WebSocket connection and event handlers
     function setup() {  
         
+        // The location in which we'll display our output
         var output = document.getElementById("output");  
 
-
-
+        // WebSocket constructor may throw a "SECURITY_ERR" if the port is blocked.
         try {
             ws = new WebSocket("ws://127.0.0.1:5555");
         }
@@ -39,17 +52,18 @@
 
         // Listen for new messages arriving at the client
         ws.onmessage = function (e) {      
-            log("Message received: " + e.data);
-            // Close the socket once one message has arrived.      
-            //ws.close();  
+            log("Message received: " + e.data); 
         }
 
+        // Let the user decide to disconnect.
         document.getElementById("close").onclick = function(e) { disconnect() }
     }
 
+    // Disconnect from the server
     function disconnect() {
+        // Closing the connection may throw "INVALID_ACCESS_ERR" or "SYNTAX_ERR" 
         try {
-            ws.close(1000, "Client is disconnecting.");
+            ws.close(1000, "Client is disconnecting."); // "1000" in this case is the disconnect code
         }
         catch(exception) {
             log("Failed to close the connection.");
@@ -58,6 +72,7 @@
 
     // Send a message on the WebSocket.
     function sendMessage(msg) { 
+        // If the socket is open, send the message.
         if (ws.readyState == 1) { 
             ws.send(msg);      
             log("Message sent");  
@@ -78,4 +93,7 @@
 
     // Start running the example.
     setup();
+
 </script>
+</body>
+</html>

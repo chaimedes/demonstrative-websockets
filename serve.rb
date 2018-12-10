@@ -1,6 +1,8 @@
 require_relative 'server.rb'
 server = Server.new
 
+puts "Waiting for connections."
+
 # Run the server until actively terminated
 loop do
 
@@ -12,7 +14,7 @@ loop do
 	# Continue until told to close by the client.
 	while ((message = connection.recv))
 	  puts "Message recieved."
-	  connection.send("Message received.")
+	  connection.send("Server has received your message.")
 	end
 
 	puts "Disconnected"
