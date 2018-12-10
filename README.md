@@ -1,7 +1,7 @@
-# A Very Basic WebSockets Server (Ruby)
+# Minimal WebSockets Server
 *Derived from [https://blog.pusher.com/websockets-from-scratch/](https://blog.pusher.com/websockets-from-scratch/)*
 
-This code implements an extremely minimal WebSockets server, along with a browser client which can be used to connect to and test the server. 
+This code implements an extremely minimal WebSockets server in Ruby, along with a browser client which can be used to connect to and test the server. 
 
 ![Demonstration of websocket implementation](http://mberlove.com/media/ws.gif)
 
