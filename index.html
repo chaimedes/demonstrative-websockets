@@ -6,14 +6,24 @@
 </div>
 <div id="output"></div>
 <script>
+    var ws = null;
     // Initialize WebSocket connection and event handlers
     function setup() {  
-        output = document.getElementById("output");  
-        ws = new WebSocket("ws://127.0.0.1:5555");
+        
+        var output = document.getElementById("output");  
+
+
+
+        try {
+            ws = new WebSocket("ws://127.0.0.1:5555");
+        }
+        catch (security_error_exception) {
+            log("The port is currently blocked. Cannot connect.")
+        }
 
         // Listen for the connection open event then call the sendMessage function          
         ws.onopen = function (e) {      
-            log("Connected");      
+            log("Connected");
             sendMessage("Hello WebSocket!")  
         }
 
@@ -24,8 +34,7 @@
 
         // Listen for connection errors
         ws.onerror = function (e) {      
-            log("Error ");
-            //for (var i in e) {log(e[i])};  
+            log("Encountered an error while attempting to connect. Sorry!");
         }
 
         // Listen for new messages arriving at the client
@@ -39,14 +48,23 @@
     }
 
     function disconnect() {
-        ws.close();
-        //alert(ws.readyState)
+        try {
+            ws.close(1000, "Client is disconnecting.");
+        }
+        catch(exception) {
+            log("Failed to close the connection.");
+        }
     }
 
     // Send a message on the WebSocket.
-    function sendMessage(msg) {  
-        ws.send(msg);      
-        log("Message sent");  
+    function sendMessage(msg) { 
+        if (ws.readyState == 1) { 
+            ws.send(msg);      
+            log("Message sent");  
+        }
+        else {
+            log("No open connection; cannot send a message.")
+        }
     }
 
     // Display logging information in the document.
@@ -54,10 +72,7 @@
         var p = document.createElement("p");  
         p.style.wordWrap = "break-word";  
         p.textContent = s;  
-        output.appendChild(p);
-
-           // Also log information on the javascript console
-          
+        output.appendChild(p);          
         console.log(s);
     }
 

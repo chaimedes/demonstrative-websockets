@@ -10,9 +10,9 @@ loop do
 	puts "Connected"
 	
 	# Continue until told to close by the client.
-	while ((message = connection.recv) != "close")
-	  puts "Recieved: #{message}"
-	  connection.send("Received #{message}.")
+	while ((message = connection.recv))
+	  puts "Message recieved."
+	  connection.send("Message received.")
 	end
 
 	puts "Disconnected"

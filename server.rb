@@ -5,11 +5,13 @@ require_relative 'connection.rb'
 
 class Server
 
+  # Start up the server
   def initialize(options={path: '/', port: 5555, host: '127.0.0.1'})
 	@path, port, host = options[:path], options[:port], options[:host]
 	@server = TCPServer.new(host, port)
   end
 
+  # Allow a new connection
   def accept
 	socket = @server.accept
 	send_handshake(socket) && Connection.new(socket)
@@ -31,7 +33,8 @@ class Server
 	# Get the header from the line read
 	header = get_header(socket)
 
-	# Attempt to parse the header
+	# Attempt to parse the request line
+	# We aren't going to pay attention to the header fields in the request
   	if (request_line =~ /GET #{@path} HTTP\/1.1/) && (header =~ /Sec-WebSocket-Key: (.*)\r\n/)
 	  	
 	  	# Create and return the initializing acceptance handshale
@@ -77,8 +80,8 @@ class Server
 	Base64.encode64(digest)
   end
 
+  # Attempt to read the actual header line.
   def get_header(socket, header = "")
-	#puts "Line: #{header}"
 	(line = socket.gets) == "\r\n" ? header : get_header(socket, header + line)
   end
 
