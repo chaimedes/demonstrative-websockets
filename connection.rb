@@ -15,9 +15,9 @@ class Connection
   # Close this connection
   def close
 	@logger.info("Closing the socket.")
-	@logger.close
 	@socket.shutdown(:RDWR)
 	@socket.close
+	#@logger.close # Only enable this if you switch the logger to use a file!
   end
 
   # Receive and decode a message from the client.
