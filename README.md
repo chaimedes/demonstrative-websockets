@@ -7,7 +7,7 @@ This code implements an extremely minimal WebSockets server in Ruby, along with 
 
 Though relatively straightfoward to use, the process by which WebSockets operate can appear daunting and unintuitive. The server implemented here lays out line by line the process by which the server accepts, processes, and responds to WebSocket connections, peppered with running commentary.
 
-I make no guarantees that the code is entirely correct, or that its performance and organization will meet everyone's standards, merely that the code works, and (as matters most in this case) complies with the RCF WebSockets specification in its primary requirements (some exceptions are described below). Hopefully this code will serve as a tool for learning, as WebSockets enjoyable to work with and learn about (assuming you enjoy code and networking).
+I make no guarantees that the code is entirely correct, or that its performance and organization will meet everyone's standards, merely that the code works, and (as matters most in this case) complies with the RCF WebSockets specification in its primary requirements (some exceptions are described below). Hopefully this code will serve as a tool for learning, as WebSockets can be enjoyable to work with and learn about (assuming you enjoy code and networking).
 
 Some aspects of the server are only partially implemented, mostly elements not strictly needed for the most basic implementation but "prepped" so they can be easily extended and applied. One example of this is the `fin` code flag, an instance variable of the connection which tracks the finbit of the frame. Currently unused, this variable can be leveraged to track messages across multiple frames.
 
