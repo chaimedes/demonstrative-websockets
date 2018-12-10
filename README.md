@@ -1,7 +1,9 @@
 # A Very Basic WebSockets Server (Ruby)
-*Derived from (https://blog.pusher.com/websockets-from-scratch/)[https://blog.pusher.com/websockets-from-scratch/]*
+*Derived from [https://blog.pusher.com/websockets-from-scratch/](https://blog.pusher.com/websockets-from-scratch/)*
 
 This code implements an extremely minimal WebSockets server, along with a browser client which can be used to connect to and test the server. 
+
+![Demonstration of websocket implementation](http://mberlove.com/media/ws.gif)
 
 Though relatively straightfoward to use, the process by which WebSockets operate can appear daunting and unintuitive. The server implemented here lays out line by line the process by which the server accepts, processes, and responds to WebSocket connections, peppered with running commentary.
 
